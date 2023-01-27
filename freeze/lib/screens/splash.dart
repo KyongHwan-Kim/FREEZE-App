@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freeze/models/color.dart';
 import 'package:freeze/models/font.dart';
+import 'package:freeze/models/img.dart';
 import 'package:freeze/screens/login.dart';
 import 'package:freeze/utilities/utility.dart';
 
@@ -33,12 +34,10 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    final String imageLogoName = 'assets/logo/logo_main.svg';
-
     return Scaffold(
       backgroundColor: fromHex('#6F22D2'),
       body: Container(
-        color: fromHex(GrayScale.Black),
+        color: fromHex(GrayScale.White),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -49,7 +48,7 @@ class _SplashState extends State<Splash> {
               height: 50,
               margin: EdgeInsets.only(left: 10),
               // alignment: Alignment.center,
-              child: SvgPicture.asset(imageLogoName),
+              child: SvgPicture.asset(ImgLocale.Logo),
             ),
             Container(
               height: 400,

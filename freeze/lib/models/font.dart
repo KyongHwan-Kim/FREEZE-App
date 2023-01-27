@@ -11,7 +11,7 @@ class FontKoMgr {
   );
   static const TextStyle H3 = TextStyle(
     fontFamily: "NotoSans_Bold",
-    fontSize: 48,
+    fontSize: 43,
   );
   static const TextStyle H4 = TextStyle(
     fontFamily: "NotoSans_Bold",
