@@ -47,7 +47,8 @@ flutter:
   assets:
     - assets/logo/
     - assets/images/login/
-    - assets/images/icon/
+    - assets/images/icon/ShackHand.png
+    - assets/images/icon/Camera.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -70,6 +71,12 @@ flutter:
     - family: Montserrat_Extra_Bold
       fonts:
         - asset: assets/fonts/en/Montserrat-ExtraBold.ttf
+    - family: NotoSans_Light
+      fonts:
+        - asset: assets/fonts/ko/NotoSansKR-Light.otf
+    - family: NotoSans_Regular
+      fonts:
+        - asset: assets/fonts/ko/NotoSansKR-Regular.otf
     - family: NotoSans_Medium
       fonts:
         - asset: assets/fonts/ko/NotoSansKR-Medium.otf

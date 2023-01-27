@@ -4,6 +4,7 @@ import 'package:freeze/models/color.dart';
 import 'package:freeze/models/font.dart';
 import 'package:freeze/models/img.dart';
 import 'package:freeze/screens/app.dart';
+import 'package:freeze/screens/question/what.dart';
 import 'package:freeze/utilities/utility.dart';
 
 class Login extends StatefulWidget {
@@ -96,7 +97,9 @@ class _LoginState extends State<Login> {
             child: FlatButton(
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => App()));
+                    // context, MaterialPageRoute(builder: (_) => App())); TODO
+                    context,
+                    MaterialPageRoute(builder: (_) => What()));
               },
               child: Text(
                 '로그인',
