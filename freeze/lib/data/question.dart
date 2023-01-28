@@ -28,3 +28,11 @@ class HowList {
     {'title': '어두운', 'value': 'dark', 'selected': false},
   ];
 }
+
+class CameraRouteList {
+  List<Map> items = [
+    {'title': '프리즈 촬영', 'value': 'freeze', 'selected': false},
+    {'title': '혼자 촬영', 'value': 'self', 'selected': false},
+    {'title': '사진 편집', 'value': 'edit', 'selected': false},
+  ];
+}

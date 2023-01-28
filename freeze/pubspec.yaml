@@ -23,11 +23,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  path:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   flutter_svg:
+  naver_map_plugin: ^0.9.6
+  convex_bottom_bar: ^2.4.0
+  get:
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +52,7 @@ flutter:
     - assets/images/login/
     - assets/images/icon/ShackHand.png
     - assets/images/icon/Camera.png
+    - assets/images/icon/Star.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
