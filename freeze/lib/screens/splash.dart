@@ -45,13 +45,16 @@ class _SplashState extends State<Splash> {
               height: 300,
             ),
             Container(
-              height: 50,
+              height: 200,
               margin: EdgeInsets.only(left: 10),
               // alignment: Alignment.center,
-              child: SvgPicture.asset(ImgLocale.Logo),
+              child: Image.asset(
+                ImgLocale.LogoAnimation,
+                height: 200,
+              ),
             ),
             Container(
-              height: 400,
+              height: 200,
             ),
             Container(
               child:
