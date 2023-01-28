@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:freeze_new/data/question.dart';
 import 'package:freeze_new/models/color.dart';
@@ -69,9 +70,12 @@ class _RouteCameraState extends State<RouteCamera> {
                         ),
                       ),
                       child: TextButton(
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => Freeze()));
+                        onPressed: () async {
+                          await availableCameras().then((value) =>
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => Freeze(cameras: value))));
                         },
                         child: Text(
                           '${_items.items[0]["title"]}',

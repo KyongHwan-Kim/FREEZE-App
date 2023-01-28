@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:freeze_new/models/color.dart';
+import 'package:freeze_new/screens/camera/freeze.dart';
 import 'package:freeze_new/screens/route_camera.dart';
 import 'package:freeze_new/utilities/utility.dart';
 import 'package:freeze_new/widgets/map.dart';
+import 'package:camera/camera.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -99,14 +101,17 @@ class _AppState extends State<App> {
             else if (this.route == 'freeze')
               Container(
                 height: MediaQuery.of(context).size.height - 180,
-                child: Text('freeze'),
+                child: SingleChildScrollView(
+                    //to scroll images
+                    //TODO
+                    child: Image.asset("assets/images/contents.png")),
               ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => RouteCamera()));
+          onPressed: () async {
+            await availableCameras().then((value) => Navigator.push(context,
+                MaterialPageRoute(builder: (_) => Freeze(cameras: value))));
           },
           child: Icon(Icons.camera_alt_rounded),
           backgroundColor: fromHex(Signiture.PrimaryNormal),

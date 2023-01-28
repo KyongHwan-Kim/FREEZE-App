@@ -29,10 +29,34 @@ class _MapState extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
-    return NaverMap(
-      onMapCreated: onMapCreated,
-      mapType: _mapType,
-      locationButtonEnable: true,
+    return Stack(
+      children: [
+        NaverMap(
+          onMapCreated: onMapCreated,
+          mapType: _mapType,
+          locationButtonEnable: true,
+        ),
+        Container(
+          width: 450,
+          height: 150,
+          color: Colors.redAccent,
+        ),
+        Container(
+          width: 350,
+          height: 125,
+          color: Colors.blueAccent,
+        ),
+        Container(
+          width: 250,
+          height: 100,
+          color: Colors.cyanAccent,
+        ),
+        Container(
+          width: 150,
+          height: 75,
+          color: Colors.purpleAccent,
+        ),
+      ],
     );
   }
 }

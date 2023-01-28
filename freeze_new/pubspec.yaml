@@ -41,6 +41,8 @@ dependencies:
   get:
   camera: 0.10.0+4
   video_player:
+  sensors_plus: ^1.2.2
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:
@@ -66,10 +68,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logo/
+    - assets/images/
     - assets/images/login/
     - assets/images/icon/ShackHand.png
     - assets/images/icon/Camera.png
     - assets/images/icon/Star.png
+    - assets/images/icon/BTN_camera.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
