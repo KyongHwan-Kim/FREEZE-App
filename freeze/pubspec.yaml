@@ -19,7 +19,6 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=2.11.0 <3.0.0'
-
 dependencies:
   flutter:
     sdk: flutter
@@ -29,7 +28,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   flutter_svg:
-  naver_map_plugin: ^0.9.6
+  flutter_naver_map:
   convex_bottom_bar: ^2.4.0
   get:
   camera:
