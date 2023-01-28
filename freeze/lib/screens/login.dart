@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
               // },
             ),
           ),
-          FlatButton(
+          TextButton(
             onPressed: () {
               //TODO FORGOT PASSWORD SCREEN GOES HERE
             },
@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
             decoration: BoxDecoration(
                 color: fromHex(Signiture.PrimaryNormal),
                 borderRadius: BorderRadius.circular(20)),
-            child: FlatButton(
+            child: TextButton(
               onPressed: () {
                 Navigator.push(
                     // context, MaterialPageRoute(builder: (_) => App())); TODO
@@ -125,7 +125,7 @@ class _LoginState extends State<Login> {
                 color: fromHex(Signiture.PrimaryNormal),
               ),
             ),
-            child: FlatButton(
+            child: TextButton(
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (_) => App()));

@@ -86,7 +86,7 @@ class _WhatState extends State<What> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.items[0]['selected'] =
@@ -119,7 +119,7 @@ class _WhatState extends State<What> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.items[1]['selected'] =
@@ -169,7 +169,7 @@ class _WhatState extends State<What> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.items[2]['selected'] =
@@ -202,7 +202,7 @@ class _WhatState extends State<What> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.items[3]['selected'] =
@@ -235,7 +235,7 @@ class _WhatState extends State<What> {
               decoration: BoxDecoration(
                   color: fromHex(Signiture.PrimaryNormal),
                   borderRadius: BorderRadius.circular(20)),
-              child: FlatButton(
+              child: TextButton(
                 onPressed: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => How()));

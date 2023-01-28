@@ -96,7 +96,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.categoryItems[0]['selected'] =
@@ -130,7 +130,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.categoryItems[1]['selected'] =
@@ -164,7 +164,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.categoryItems[2]['selected'] =
@@ -206,7 +206,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.categoryItems[3]['selected'] =
@@ -240,7 +240,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.categoryItems[4]['selected'] =
@@ -274,7 +274,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.categoryItems[5]['selected'] =
@@ -337,7 +337,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[0]['selected'] =
@@ -370,7 +370,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[1]['selected'] =
@@ -403,7 +403,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[2]['selected'] =
@@ -444,7 +444,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[3]['selected'] =
@@ -477,7 +477,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[4]['selected'] =
@@ -510,7 +510,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[5]['selected'] =
@@ -551,7 +551,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[6]['selected'] =
@@ -584,7 +584,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[7]['selected'] =
@@ -617,7 +617,7 @@ class _HowState extends State<How> {
                                   : fromHex(GrayScale.C_BF),
                             ),
                           ),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 _items.moodItems[8]['selected'] =
@@ -660,7 +660,7 @@ class _HowState extends State<How> {
                         width: 2,
                         color: fromHex(Signiture.PrimaryNormal),
                       )),
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () {
                       Navigator.push(
                           context, MaterialPageRoute(builder: (_) => App()));
@@ -681,7 +681,7 @@ class _HowState extends State<How> {
                   decoration: BoxDecoration(
                       color: fromHex(Signiture.PrimaryNormal),
                       borderRadius: BorderRadius.circular(20)),
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () {
                       Navigator.push(
                           context, MaterialPageRoute(builder: (_) => App()));

@@ -37,7 +37,7 @@ class _AppState extends State<App> {
                           width: 2,
                           color: fromHex(Signiture.PrimaryNormal),
                         )),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {
                         setState(() {
                           this.route = 'photo_map';
@@ -67,7 +67,7 @@ class _AppState extends State<App> {
                           width: 2,
                           color: fromHex(Signiture.PrimaryNormal),
                         )),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {
                         setState(() {
                           this.route = 'freeze';

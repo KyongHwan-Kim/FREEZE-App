@@ -68,7 +68,7 @@ class _RouteCameraState extends State<RouteCamera> {
                               : fromHex(GrayScale.C_BF),
                         ),
                       ),
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) => Freeze()));
@@ -99,7 +99,7 @@ class _RouteCameraState extends State<RouteCamera> {
                               : fromHex(GrayScale.C_BF),
                         ),
                       ),
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) => Self()));
@@ -130,7 +130,7 @@ class _RouteCameraState extends State<RouteCamera> {
                               : fromHex(GrayScale.C_BF),
                         ),
                       ),
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) => Edit()));
