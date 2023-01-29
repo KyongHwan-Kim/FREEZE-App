@@ -33,6 +33,8 @@
 
 `iOS Emulator를 이용하여 실행 시, 오류가 발생할 수 있습니다.`
 
+`freeze_new Dict내의 Code가 Recent Release Code 입니다.`
+
 1. 본 Repository를 로컬 환경에 Clone 받습니다.
 2. VSCode Extension 중 `Flutter` , `Dart`를 설치합니다.
 3. `Ctrl + F5` 또는 `Run -> Run Without Debugging`을 통해 Emulator를 실행합니다.
@@ -42,7 +44,14 @@ don't support null safety: ` 관련 에러 발생 시, `Visual Studio Code → P
 
 ## Production 배포 방법
 
+### Public
+
 본 프로젝트는 구글 플레이 또는 앱스토어에 배포하지 않았습니다.
+
+### Local
+
+1. freeze_new Dict 내에서 `flutter build apk --release --target-platform=android-arm64 --no-sound-null-safety`를 실행하여 APK 파일을 빌드합니다.
+2. `[Project Forder]/build/app/outputs/apk/release/app-release.apk`를 설치합니다.
 
 ## 환경 변수 및 시크릿
 
