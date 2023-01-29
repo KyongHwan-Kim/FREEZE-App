@@ -14,118 +14,143 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  int _selectedIndex = 0;
   String route = 'photo_map';
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 50),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    height: 40,
-                    width: 170,
-                    decoration: BoxDecoration(
-                        color: this.route == 'photo_map'
-                            ? fromHex(Signiture.PrimaryNormal)
-                            : fromHex(GrayScale.White),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          width: 2,
-                          color: fromHex(Signiture.PrimaryNormal),
-                        )),
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          this.route = 'photo_map';
-                        });
-                      },
-                      child: Text(
-                        'Photo Map',
-                        style: TextStyle(
-                          fontFamily: "Montserrat_Extrabold",
-                          fontSize: 14,
-                          color: this.route == 'photo_map'
-                              ? fromHex(GrayScale.White)
-                              : fromHex(Signiture.PrimaryNormal),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: 170,
-                    decoration: BoxDecoration(
-                        color: this.route == 'freeze'
-                            ? fromHex(Signiture.PrimaryNormal)
-                            : fromHex(GrayScale.White),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          width: 2,
-                          color: fromHex(Signiture.PrimaryNormal),
-                        )),
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          this.route = 'freeze';
-                        });
-                      },
-                      child: Text(
-                        'FREEZE',
-                        style: TextStyle(
-                          fontFamily: "Montserrat_Extrabold",
-                          fontSize: 14,
-                          color: this.route == 'freeze'
-                              ? fromHex(GrayScale.White)
-                              : fromHex(Signiture.PrimaryNormal),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 30,
-            ),
-            if (this.route == 'photo_map')
-              Container(
-                height: MediaQuery.of(context).size.height - 180,
-                child: Map(),
-              )
-            else if (this.route == 'freeze')
-              Container(
-                height: MediaQuery.of(context).size.height - 180,
+        body: _selectedIndex == 1
+            ? Container(
                 child: SingleChildScrollView(
                     //to scroll images
                     //TODO
-                    child: Image.asset("assets/images/contents.png")),
+                    child: Image.asset("assets/images/My.png")),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 170,
+                          decoration: BoxDecoration(
+                              color: this.route == 'photo_map'
+                                  ? fromHex(Signiture.PrimaryNormal)
+                                  : fromHex(GrayScale.White),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                width: 2,
+                                color: fromHex(Signiture.PrimaryNormal),
+                              )),
+                          child: TextButton(
+                            onPressed: () {
+                              setState(() {
+                                this.route = 'photo_map';
+                              });
+                            },
+                            child: Text(
+                              'Photo Map',
+                              style: TextStyle(
+                                fontFamily: "Montserrat_Extrabold",
+                                fontSize: 14,
+                                color: this.route == 'photo_map'
+                                    ? fromHex(GrayScale.White)
+                                    : fromHex(Signiture.PrimaryNormal),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 40,
+                          width: 170,
+                          decoration: BoxDecoration(
+                              color: this.route == 'freeze'
+                                  ? fromHex(Signiture.PrimaryNormal)
+                                  : fromHex(GrayScale.White),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                width: 2,
+                                color: fromHex(Signiture.PrimaryNormal),
+                              )),
+                          child: TextButton(
+                            onPressed: () {
+                              setState(() {
+                                this.route = 'freeze';
+                              });
+                            },
+                            child: Text(
+                              'FREEZE',
+                              style: TextStyle(
+                                fontFamily: "Montserrat_Extrabold",
+                                fontSize: 14,
+                                color: this.route == 'freeze'
+                                    ? fromHex(GrayScale.White)
+                                    : fromHex(Signiture.PrimaryNormal),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                  ),
+                  if (_selectedIndex == 0 && this.route == 'photo_map')
+                    Container(
+                      height: MediaQuery.of(context).size.height - 200,
+                      child: Map(),
+                    )
+                  else if (_selectedIndex == 0 && this.route == 'freeze')
+                    Container(
+                      height: MediaQuery.of(context).size.height - 200,
+                      child: SingleChildScrollView(
+                          //to scroll images
+                          //TODO
+                          child: Image.asset("assets/images/contents.png")),
+                    ),
+                ],
               ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            await availableCameras().then((value) => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => Freeze(cameras: value))));
-          },
-          child: Icon(Icons.camera_alt_rounded),
-          backgroundColor: fromHex(Signiture.PrimaryNormal),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          notchMargin: 10,
-          child: Container(
-            height: 60,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [],
+        floatingActionButton: Container(
+          height: 100.0,
+          width: 100.0,
+          child: FittedBox(
+            child: FloatingActionButton(
+              onPressed: () async {
+                await availableCameras().then((value) => Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => Freeze(cameras: value))));
+              },
+              child: Icon(Icons.camera_alt_rounded),
+              backgroundColor: fromHex(Signiture.PrimaryNormal),
             ),
           ),
-        ));
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: SizedBox(
+            height: 80,
+            child: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home, size: 30),
+                  label: ' ',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person, size: 30),
+                  label: ' ',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            )));
   }
 }

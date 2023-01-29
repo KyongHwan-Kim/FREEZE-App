@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freeze_new/models/color.dart';
 import 'package:freeze_new/models/font.dart';
+import 'package:freeze_new/screens/camera/get_guide.dart';
 import 'package:freeze_new/screens/camera/preview.dart';
 import 'package:freeze_new/utilities/utility.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Freeze extends StatefulWidget {
   final List<CameraDescription>? cameras;
@@ -75,7 +77,7 @@ class _FreezeState extends State<Freeze> {
   Future initCamera(CameraDescription cameraDescription) async {
 // create a CameraController
     _cameraController =
-        CameraController(cameraDescription, ResolutionPreset.high);
+        CameraController(cameraDescription, ResolutionPreset.ultraHigh);
 // Next, initialize the controller. This returns a Future.
     try {
       await _cameraController.initialize().then((_) {
@@ -91,21 +93,21 @@ class _FreezeState extends State<Freeze> {
     await _cameraController.takePicture().then((XFile xfile) {
       if (mounted) {
         if (xfile != null) {
-          // showDialog(
-          //   context: context,
-          //   builder: (context) => AlertDialog(
-          //     title: Text('Ambil Gambar'),
-          //     content: SizedBox(
-          //       width: 200.0,
-          //       height: 200.0,
-          //       child: CircleAvatar(
-          //         backgroundImage: Image.file(
-          //           File(xfile.path),
-          //         ).image,
-          //       ),
-          //     ),
-          //   ),
-          // );
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Ambil Gambar'),
+              content: SizedBox(
+                width: 200.0,
+                height: 200.0,
+                child: CircleAvatar(
+                    // backgroundImage: Image.file(
+                    //   // File(xfile.path),
+                    // ).image,
+                    ),
+              ),
+            ),
+          );
         }
       }
       return;
@@ -240,7 +242,7 @@ class _FreezeState extends State<Freeze> {
                     Align(
                       alignment: Alignment.center,
                       child: AspectRatio(
-                        aspectRatio: 1 / 1,
+                        aspectRatio: 0.8 / 0.8,
                         child: Image.asset(
                           'assets/images/eric_at_ocean_edge.png',
                           fit: BoxFit.cover,
@@ -396,7 +398,11 @@ class _FreezeState extends State<Freeze> {
                                             child: Column(children: [
                                               TextButton(
                                                 onPressed: () {
-                                                  print('I got clicked');
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) =>
+                                                              GetGuide()));
                                                 },
                                                 child:
                                                     Icon(Icons.upload_rounded),

@@ -43,6 +43,8 @@ dependencies:
   video_player:
   sensors_plus: ^1.2.2
   animated_text_kit: ^4.2.2
+  sliding_up_panel: ^2.0.0+1
+  http:
 
 dev_dependencies:
   flutter_test:
