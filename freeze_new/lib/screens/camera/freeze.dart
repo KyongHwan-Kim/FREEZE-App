@@ -80,8 +80,10 @@ class _FreezeState extends State<Freeze> {
   }
 
   Future initCamera(CameraDescription cameraDescription) async {
-    final appDir = await pPath.getApplicationDocumentsDirectory();
-    Directory('${appDir.path}/picture').create();
+    final appDir = await pPath.getExternalStorageDirectory();
+    new Directory('${appDir?.path}/picture')
+        .create(recursive: true)
+        .then((Directory directory) {});
 // create a CameraController
     _cameraController =
         CameraController(cameraDescription, ResolutionPreset.ultraHigh);
@@ -107,10 +109,10 @@ class _FreezeState extends State<Freeze> {
       await _cameraController.setFlashMode(FlashMode.off);
       XFile picture = await _cameraController.takePicture();
       // 갤러리 저장
-      final appDir = await pPath.getApplicationDocumentsDirectory();
+      final appDir = await pPath.getExternalStorageDirectory();
 
       picture.saveTo(
-          '${appDir.path}/picture/${DateTime.now().millisecondsSinceEpoch}.jpg');
+          '${appDir?.path}/picture/${DateTime.now().millisecondsSinceEpoch}.jpg');
 
       Navigator.push(
           context,

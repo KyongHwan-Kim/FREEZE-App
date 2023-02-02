@@ -27,10 +27,9 @@ class _PreviewState extends State<Preview> {
   String directory = "";
   // Make New Function
   void _listofFiles() async {
-    directory = (await pPath.getApplicationDocumentsDirectory()).path;
-
+    final appDir = await pPath.getExternalStorageDirectory();
     setState(() {
-      file = Directory("$directory/picture")
+      file = Directory("${appDir?.path}/picture/")
           .listSync(); //use your folder name insted of resume.
     });
     print(file);
