@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +9,11 @@ import 'package:freeze_new/models/font.dart';
 import 'package:freeze_new/screens/camera/get_guide.dart';
 import 'package:freeze_new/screens/camera/preview.dart';
 import 'package:freeze_new/utilities/utility.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as pPath;
 
 class Freeze extends StatefulWidget {
   final List<CameraDescription>? cameras;
@@ -27,7 +32,7 @@ class _FreezeState extends State<Freeze> {
 
   bool isEdgeGuideOn = false;
   double edgeGuideOpacity = 0;
-
+  double cameraRatio = 0.7;
   double tilt = -1.5;
   String tiltSource = "assets/images/TiltGood.gif";
 
@@ -75,6 +80,8 @@ class _FreezeState extends State<Freeze> {
   }
 
   Future initCamera(CameraDescription cameraDescription) async {
+    final appDir = await pPath.getApplicationDocumentsDirectory();
+    Directory('${appDir.path}/picture').create();
 // create a CameraController
     _cameraController =
         CameraController(cameraDescription, ResolutionPreset.ultraHigh);
@@ -89,31 +96,6 @@ class _FreezeState extends State<Freeze> {
     }
   }
 
-  void onTakePicture() async {
-    await _cameraController.takePicture().then((XFile xfile) {
-      if (mounted) {
-        if (xfile != null) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text('Ambil Gambar'),
-              content: SizedBox(
-                width: 200.0,
-                height: 200.0,
-                child: CircleAvatar(
-                    // backgroundImage: Image.file(
-                    //   // File(xfile.path),
-                    // ).image,
-                    ),
-              ),
-            ),
-          );
-        }
-      }
-      return;
-    });
-  }
-
   Future takePicture() async {
     if (!_cameraController.value.isInitialized) {
       return null;
@@ -124,6 +106,12 @@ class _FreezeState extends State<Freeze> {
     try {
       await _cameraController.setFlashMode(FlashMode.off);
       XFile picture = await _cameraController.takePicture();
+      // 갤러리 저장
+      final appDir = await pPath.getApplicationDocumentsDirectory();
+
+      picture.saveTo(
+          '${appDir.path}/picture/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -231,7 +219,21 @@ class _FreezeState extends State<Freeze> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       (_cameraController.value.isInitialized)
-                          ? CameraPreview(_cameraController)
+                          ? AspectRatio(
+                              aspectRatio: 1,
+                              child: ClipRect(
+                                child: Transform.scale(
+                                  scale:
+                                      1 / _cameraController.value.aspectRatio,
+                                  child: Center(
+                                      child: AspectRatio(
+                                          aspectRatio: _cameraController
+                                              .value.aspectRatio,
+                                          child: CameraPreview(
+                                              _cameraController))),
+                                ),
+                              ),
+                            )
                           : Container(
                               color: Colors.black,
                               child: const Center(

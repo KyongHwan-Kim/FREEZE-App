@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +8,7 @@ import 'package:freeze_new/models/font.dart';
 import 'package:freeze_new/models/img.dart';
 import 'package:freeze_new/screens/login.dart';
 import 'package:freeze_new/utilities/utility.dart';
+import 'package:path_provider/path_provider.dart' as pPath;
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

@@ -150,6 +150,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_file_manager:
+    dependency: "direct main"
+    description:
+      name: flutter_file_manager
+      sha256: "75beffaa3b69506cf74d66ba318361c3af549e23c9ecf73c5d1c6a505d9c46b8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -158,6 +166,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_naver_map:
+    dependency: "direct main"
+    description:
+      name: flutter_naver_map
+      sha256: b1de9099eac9153a562602a872c959bd23de9a385e8b39565ad6676f41ecf215
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.6"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -216,6 +232,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.4"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      sha256: "722904f354b9c1f9b64cb2579a7b6c7d21fd54e21811f15db21d78d83892cfb1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.2+3"
   js:
     dependency: transitive
     description:
@@ -256,14 +280,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
-  naver_map_plugin:
-    dependency: "direct main"
-    description:
-      name: naver_map_plugin
-      sha256: fb5443bec21585a82a3bc88f6bb53561672a3178a5cdd2ea772c35c8b80b35a6
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.6"
   path:
     dependency: "direct main"
     description:
@@ -304,6 +320,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.22"
+  path_provider_ex:
+    dependency: "direct main"
+    description:
+      name: path_provider_ex
+      sha256: f55d5ae21136f50da0c266efb5b350ec6300396debb099c7952b25fd512e45ae
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path_provider_foundation:
     dependency: transitive
     description:

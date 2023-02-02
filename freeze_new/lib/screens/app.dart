@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:freeze_new/models/color.dart';
 import 'package:freeze_new/screens/camera/freeze.dart';
+import 'package:freeze_new/screens/profile.dart';
 import 'package:freeze_new/screens/route_camera.dart';
 import 'package:freeze_new/utilities/utility.dart';
-import 'package:freeze_new/widgets/map.dart';
+import 'package:freeze_new/widgets/map/map.dart';
 import 'package:camera/camera.dart';
 
 class App extends StatefulWidget {
@@ -26,12 +27,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: _selectedIndex == 1
-            ? Container(
-                child: SingleChildScrollView(
-                    //to scroll images
-                    //TODO
-                    child: Image.asset("assets/images/My.png")),
-              )
+            ? Profile()
             : Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -117,6 +113,7 @@ class _AppState extends State<App> {
                       child: SingleChildScrollView(
                           //to scroll images
                           //TODO
+
                           child: Image.asset("assets/images/contents.png")),
                     ),
                 ],
