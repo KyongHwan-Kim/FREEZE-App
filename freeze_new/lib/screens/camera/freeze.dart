@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:freeze_new/models/color.dart';
 import 'package:freeze_new/models/font.dart';
 import 'package:freeze_new/screens/camera/get_guide.dart';
-import 'package:freeze_new/screens/camera/preview.dart';
+import 'package:freeze_new/screens/upload/preview.dart';
 import 'package:freeze_new/utilities/utility.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -221,21 +221,7 @@ class _FreezeState extends State<Freeze> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       (_cameraController.value.isInitialized)
-                          ? AspectRatio(
-                              aspectRatio: 1,
-                              child: ClipRect(
-                                child: Transform.scale(
-                                  scale:
-                                      1 / _cameraController.value.aspectRatio,
-                                  child: Center(
-                                      child: AspectRatio(
-                                          aspectRatio: _cameraController
-                                              .value.aspectRatio,
-                                          child: CameraPreview(
-                                              _cameraController))),
-                                ),
-                              ),
-                            )
+                          ? CameraPreview(_cameraController)
                           : Container(
                               color: Colors.black,
                               child: const Center(

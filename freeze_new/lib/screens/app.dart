@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:freeze_new/models/color.dart';
 import 'package:freeze_new/screens/camera/freeze.dart';
 import 'package:freeze_new/screens/profile.dart';
-import 'package:freeze_new/screens/route_camera.dart';
 import 'package:freeze_new/utilities/utility.dart';
 import 'package:freeze_new/widgets/map/map.dart';
 import 'package:camera/camera.dart';

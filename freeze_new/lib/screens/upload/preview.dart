@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:freeze_new/models/color.dart';
 import 'package:freeze_new/models/font.dart';
 import 'package:freeze_new/utilities/utility.dart';
-import 'package:http/http.dart' as http;
+import 'package:freeze_new/screens/upload/picture_info.dart' as imgInfo;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
@@ -23,16 +24,18 @@ class Preview extends StatefulWidget {
 }
 
 class _PreviewState extends State<Preview> {
-  List file = [];
+  List<FileSystemEntity> file = [];
+  List<FileSystemEntity> reversedfile = [];
   String directory = "";
+  String selectImgPath = "";
   // Make New Function
   void _listofFiles() async {
     final appDir = await pPath.getExternalStorageDirectory();
     setState(() {
-      file = Directory("${appDir?.path}/picture/")
-          .listSync(); //use your folder name insted of resume.
+      file = Directory("${appDir?.path}/picture/").listSync();
+      reversedfile =
+          List.from(file.reversed); //use your folder name insted of resume.
     });
-    print(file);
   }
 
   @override
@@ -43,14 +46,7 @@ class _PreviewState extends State<Preview> {
 
   @override
   Widget build(BuildContext context) {
-    // Future getImage(ImageSource context) async {
-    //   final pickedFile = await picker.platform.pickImage(source: context);
-    //   return picker.getImage(source: context).then((value) {
-    //     setState(() {
-    //       _image = File(value!.path);
-    //     });
-    //   });
-    // }
+    String selectImgPath = widget.picture.path;
 
     return Scaffold(
       appBar: AppBar(
@@ -83,30 +79,19 @@ class _PreviewState extends State<Preview> {
                 size: 35,
                 color: fromHex(Signiture.PrimaryNormal),
               ),
-              onPressed: () async {
-                var headers = {'Content-Type': 'multipart/form-data'};
-                var request = http.MultipartRequest(
-                    'POST',
-                    Uri.parse(
-                        'http://ec2-43-201-76-102.ap-northeast-2.compute.amazonaws.com:8080/image'));
-                request.files.add(await http.MultipartFile.fromPath(
-                    'user_file', widget.picture.path));
-                request.headers.addAll(headers);
-
-                http.StreamedResponse response = await request.send();
-
-                if (response.statusCode == 200) {
-                  print(await response.stream.bytesToString());
-                } else {
-                  print(response.reasonPhrase);
-                }
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) =>
+                            imgInfo.PictureInfo(picturePath: selectImgPath)));
               }),
         ],
       ),
       body: Stack(children: <Widget>[
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Image.file(
-            File(widget.picture.path),
+            File(selectImgPath),
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height - 320,
             width: MediaQuery.of(context).size.width - 20,
@@ -123,12 +108,32 @@ class _PreviewState extends State<Preview> {
               child: Stack(children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(top: 30),
-                  child: ListView(controller: sc, children: [
-                    Image.asset(
-                      "assets/images/Box_Image.png",
-                      width: MediaQuery.of(context).size.width - 40,
+                  child: GridView.builder(
+                    itemCount: reversedfile.length, //item 개수
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3, //1 개의 행에 보여줄 item 개수
+                      childAspectRatio: 1 / 1, //item 의 가로 1, 세로 2 의 비율
+                      mainAxisSpacing: 10, //수평 Padding
+                      crossAxisSpacing: 10, //수직 Padding
                     ),
-                  ]),
+                    itemBuilder: (BuildContext context, int index) {
+                      //item 의 반목문 항목 형성
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            print(selectImgPath);
+                            selectImgPath = reversedfile[index].path;
+                          });
+                        }, // Image tapped
+                        child: Image.file(
+                          File(reversedfile[index].path),
+                          fit: BoxFit.cover, // Fixes border issues
+                          width: 90.0,
+                          height: 90.0,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Align(
                     alignment: Alignment.topCenter,
