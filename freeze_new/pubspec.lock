@@ -25,30 +25,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  camera:
+  camera_android:
     dependency: "direct main"
     description:
-      name: camera
-      sha256: "493d88e42160a0740d606b3980575c7ec65edf9f0d84755f734c0c88622d3fde"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.0+4"
-  camera_android:
-    dependency: transitive
-    description:
-      name: camera_android
-      sha256: "417e9eddda8025d7342f82ee53b214f149793e95c8490c3440a46144409f7966"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.2+3"
-  camera_avfoundation:
-    dependency: transitive
-    description:
-      name: camera_avfoundation
-      sha256: eeda6a7947b1f7c47395c4459342d1e6866014186449e141a251f0549aba0c8b
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.10+2"
+      path: "packages/camera/camera_android"
+      ref: e1a4dba770da9bc3cf9f858bac6837083f8b9059
+      resolved-ref: e1a4dba770da9bc3cf9f858bac6837083f8b9059
+      url: "https://github.com/bottlepay/plugins.git"
+    source: git
+    version: "0.10.0+1"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -57,14 +42,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.4"
-  camera_web:
-    dependency: transitive
-    description:
-      name: camera_web
-      sha256: "496de93c5d462738ce991dbfe91fb19026f115ed36406700a20a380fb0018299"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.1+1"
   characters:
     dependency: transitive
     description:
@@ -376,14 +353,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      sha256: b1c1ac5ce6688d77f65f3375a9abb9319b3cb32486bdc7a1e0fdf004d7ba4e47
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.1"
   sensors_plus:
     dependency: "direct main"
     description:

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:freeze_new/models/color.dart';
 import 'package:freeze_new/screens/camera/freeze.dart';
-import 'package:freeze_new/screens/route_camera.dart';
+import 'package:freeze_new/screens/camera/freeze_camera.dart';
 import 'package:freeze_new/utilities/utility.dart';
-import 'package:freeze_new/widgets/map.dart';
-import 'package:camera/camera.dart';
+import 'package:freeze_new/map/map.dart';
+import 'package:camera_platform_interface/camera_platform_interface.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -13,7 +13,10 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+List<CameraDescription> _cameras = <CameraDescription>[];
+
+class _AppState extends State<App>
+    with WidgetsBindingObserver, TickerProviderStateMixin {
   int _selectedIndex = 0;
   String route = 'photo_map';
   void _onItemTapped(int index) {
@@ -127,8 +130,18 @@ class _AppState extends State<App> {
           child: FittedBox(
             child: FloatingActionButton(
               onPressed: () async {
-                await availableCameras().then((value) => Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => Freeze(cameras: value))));
+                try {
+                  WidgetsFlutterBinding.ensureInitialized();
+                  _cameras = await CameraPlatform.instance.availableCameras();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => FreezeCamera(cameras: _cameras)));
+                } on CameraException catch (e) {
+                  _logError(e.code, e.description);
+                }
+                // await availableCameras().then((value) => Navigator.push(context,
+                //     MaterialPageRoute(builder: (_) => Freeze(cameras: value))));
               },
               child: Icon(Icons.camera_alt_rounded),
               backgroundColor: fromHex(Signiture.PrimaryNormal),
@@ -152,5 +165,10 @@ class _AppState extends State<App> {
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
             )));
+  }
+
+  void _logError(String code, String? message) {
+    // ignore: avoid_print
+    print('Error: $code${message == null ? '' : '\nError Message: $message'}');
   }
 }

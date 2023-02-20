@@ -1,5 +1,8 @@
+/*
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:camera/camera.dart';
+import 'package:camera_android/camera_android.dart';
+
+import 'package:camera_platform_interface/camera_platform_interface.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freeze_new/models/color.dart';
@@ -19,7 +22,7 @@ class Freeze extends StatefulWidget {
 }
 
 class _FreezeState extends State<Freeze> {
-  late CameraController _cameraController;
+  late CameraController? _cameraController;
   bool _isRearCameraSelected = true;
   bool? _isGridOn = false;
   double gridOpacity = 0;
@@ -461,3 +464,4 @@ class _FreezeState extends State<Freeze> {
     );
   }
 }
+*/
