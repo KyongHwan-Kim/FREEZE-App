@@ -19,7 +19,8 @@ class CameraPreview extends StatelessWidget {
 
   /// A widget to overlay on top of the camera preview
   final Widget? child;
-
+  final bool? _isGridOn = false;
+  final double gridOpacity = 0;
   @override
   Widget build(BuildContext context) {
     return controller.value.isInitialized
@@ -38,6 +39,15 @@ class CameraPreview extends StatelessWidget {
                   children: <Widget>[
                     _wrapInRotatedBox(child: controller.buildPreview()),
                     child ?? Container(),
+                    if (_isGridOn!)
+                      AspectRatio(
+                        aspectRatio: 3 / 4,
+                        child: Image.asset(
+                          'assets/images/Grid.png',
+                          fit: BoxFit.cover,
+                          opacity: AlwaysStoppedAnimation(gridOpacity),
+                        ),
+                      ),
                   ],
                 ),
               );
