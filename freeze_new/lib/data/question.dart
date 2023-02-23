@@ -36,3 +36,31 @@ class CameraRouteList {
     {'title': '사진 편집', 'value': 'edit', 'selected': false},
   ];
 }
+
+class TagList {
+  List<Map> items = [
+    {
+      'tagName': '# 찍은 사진의 종류를 알려주세요',
+      'tag': [
+        {'title': '인물사진', 'value': 'person', 'selected': false},
+        {'title': '풍경사진', 'value': 'background', 'selected': false}
+      ]
+    },
+    {
+      'tagName': '# 사진을 찍은 위치를 알려주세요',
+      'tag': [
+        {'title': '실내', 'value': 'person', 'selected': false},
+        {'title': '실외', 'value': 'background', 'selected': false}
+      ]
+    },
+    {
+      'tagName': '# 사진 속 계절을 알려주세요',
+      'tag': [
+        {'title': '봄', 'value': 'person', 'selected': false},
+        {'title': '여름', 'value': 'person', 'selected': false},
+        {'title': '가을', 'value': 'person', 'selected': false},
+        {'title': '겨울', 'value': 'background', 'selected': false}
+      ]
+    },
+  ];
+}

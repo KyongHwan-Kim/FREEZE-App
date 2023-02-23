@@ -28,12 +28,7 @@ class _AppState extends State<App>
   Widget build(BuildContext context) {
     return Scaffold(
         body: _selectedIndex == 1
-            ? Container(
-                child: SingleChildScrollView(
-                    //to scroll images
-                    //TODO
-                    child: Image.asset("assets/images/My.png")),
-              )
+            ? Profile()
             : Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -119,6 +114,7 @@ class _AppState extends State<App>
                       child: SingleChildScrollView(
                           //to scroll images
                           //TODO
+
                           child: Image.asset("assets/images/contents.png")),
                     ),
                 ],
