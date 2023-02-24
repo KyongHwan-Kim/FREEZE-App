@@ -4,7 +4,9 @@ import 'package:sensors_plus/sensors_plus.dart';
 
 class TiltGuide extends StatefulWidget {
   final double defaultTilt;
-  const TiltGuide({Key? key, required this.defaultTilt}) : super(key: key);
+  final Map? exif;
+  const TiltGuide({Key? key, required this.defaultTilt, this.exif})
+      : super(key: key);
 
   @override
   _TiltGuideState createState() => _TiltGuideState();
@@ -29,19 +31,36 @@ class _TiltGuideState extends State<TiltGuide> {
     if (mounted) {
       accelerometerEvents.listen((AccelerometerEvent e) {
         setState(() {
-          if (e.z > widget.defaultTilt + 0.3) {
-            tiltSource = tiltIn;
-          } else if (e.z < widget.defaultTilt - 0.3) {
-            tiltSource = tiltOut;
+          if (widget.exif == null) {
+            if (e.z > widget.defaultTilt + 0.3) {
+              tiltSource = tiltIn;
+            } else if (e.z < widget.defaultTilt - 0.3) {
+              tiltSource = tiltOut;
+            } else {
+              tiltSource = tiltGood;
+            }
+            if (e.x > 0.3) {
+              horizionSource = horizionRight;
+            } else if (e.x < -0.3) {
+              horizionSource = horizionLeft;
+            } else {
+              horizionSource = horizionGood;
+            }
           } else {
-            tiltSource = tiltGood;
-          }
-          if (e.x > 0.3) {
-            horizionSource = horizionRight;
-          } else if (e.x < -0.3) {
-            horizionSource = horizionLeft;
-          } else {
-            horizionSource = horizionGood;
+            if (e.z > widget.exif!['tilt'] + 0.3) {
+              tiltSource = tiltIn;
+            } else if (e.z < widget.exif!['tilt'] - 0.3) {
+              tiltSource = tiltOut;
+            } else {
+              tiltSource = tiltGood;
+            }
+            if (e.x > 0.3) {
+              horizionSource = horizionRight;
+            } else if (e.x < -0.3) {
+              horizionSource = horizionLeft;
+            } else {
+              horizionSource = horizionGood;
+            }
           }
         });
       });
@@ -63,16 +82,17 @@ class _TiltGuideState extends State<TiltGuide> {
             const Text("수평계", style: FontKoMgr.Overline)
           ],
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              tiltSource,
-              width: 70,
-            ),
-            const Text("기울기", style: FontKoMgr.Overline)
-          ],
-        ),
+        if (widget.exif != null)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                tiltSource,
+                width: 70,
+              ),
+              const Text("기울기", style: FontKoMgr.Overline)
+            ],
+          ),
       ],
     );
   }

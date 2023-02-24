@@ -6,12 +6,14 @@ class Header extends StatelessWidget {
       {Key? key,
       required this.onCameraSwitch,
       required this.onGridGuide,
-      required this.defaultTilt})
+      required this.defaultTilt,
+      this.exif})
       : super(key: key);
 
   final VoidCallback onCameraSwitch;
   final VoidCallback onGridGuide;
   final double defaultTilt;
+  final Map? exif;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class Header extends StatelessWidget {
                   ),
                 ],
               ),
-              TiltGuide(defaultTilt: defaultTilt),
+              TiltGuide(defaultTilt: defaultTilt, exif: exif),
             ]),
           )
         ]);

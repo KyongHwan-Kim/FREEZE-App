@@ -1,4 +1,4 @@
-import 'package:naver_map_plugin/naver_map_plugin.dart' show LatLng;
+import 'package:flutter_naver_map/flutter_naver_map.dart' show LatLng;
 
 class LocationClass extends LatLng {
   final double latitude;

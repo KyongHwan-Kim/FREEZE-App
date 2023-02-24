@@ -3,7 +3,7 @@ import 'package:freeze_new/models/color.dart';
 import 'package:freeze_new/screens/camera/freeze_camera.dart';
 import 'package:freeze_new/screens/profile.dart';
 import 'package:freeze_new/utilities/utility.dart';
-import 'package:freeze_new/map/map.dart';
+import 'package:freeze_new/widgets/map/map.dart';
 import 'package:camera_platform_interface/camera_platform_interface.dart';
 
 class App extends StatefulWidget {

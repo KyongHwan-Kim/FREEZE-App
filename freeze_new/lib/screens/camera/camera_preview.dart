@@ -5,13 +5,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:freeze_new/screens/camera/guide/edge_guide.dart';
+import 'package:freeze_new/screens/camera/guide/grid_guide.dart';
+import 'package:freeze_new/screens/camera/guide/text_guide.dart';
 
 import 'camera_controller.dart';
 
 /// A widget showing a live camera preview.
 class CameraPreview extends StatelessWidget {
   /// Creates a preview widget for the given camera controller.
-  const CameraPreview(this.controller, {Key? key, this.child})
+  const CameraPreview(this.controller, this._isGridOn, this._isEdgeGuideOn,
+      this.edgeGuideOpacity, this.guide,
+      {Key? key, this.child})
       : super(key: key);
 
   /// The controller for the camera that the preview is shown for.
@@ -19,8 +24,12 @@ class CameraPreview extends StatelessWidget {
 
   /// A widget to overlay on top of the camera preview
   final Widget? child;
-  final bool? _isGridOn = false;
-  final double gridOpacity = 0;
+  final bool? _isGridOn;
+  final bool? _isEdgeGuideOn;
+  final Map? guide;
+  final double gridOpacity = 0.4;
+  final double edgeGuideOpacity;
+  // final String edgePath = 'assets/images/eric_at_ocean_edge.png';
   @override
   Widget build(BuildContext context) {
     return controller.value.isInitialized
@@ -39,15 +48,12 @@ class CameraPreview extends StatelessWidget {
                   children: <Widget>[
                     _wrapInRotatedBox(child: controller.buildPreview()),
                     child ?? Container(),
-                    if (_isGridOn!)
-                      AspectRatio(
-                        aspectRatio: 3 / 4,
-                        child: Image.asset(
-                          'assets/images/Grid.png',
-                          fit: BoxFit.cover,
-                          opacity: AlwaysStoppedAnimation(gridOpacity),
-                        ),
-                      ),
+                    if (_isGridOn!) GridGuide(ratio: 1 / cameraAspectRatio),
+                    if (_isEdgeGuideOn!)
+                      EdgeGuide(
+                          edgeOpacity: edgeGuideOpacity,
+                          edgePath: guide!['edgeAsset']),
+                    if (_isEdgeGuideOn!) const TextGuide()
                   ],
                 ),
               );

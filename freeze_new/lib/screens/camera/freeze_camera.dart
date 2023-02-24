@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:freeze_new/models/font.dart';
+import 'package:freeze_new/screens/upload/preview.dart';
 import 'package:video_player/video_player.dart';
 
 import 'camera_controller.dart';
@@ -21,9 +22,10 @@ import 'camera_preview.dart';
 /// Camera example home widget.
 class FreezeCamera extends StatefulWidget {
   /// Default Constructor
-  const FreezeCamera({Key? key, required this.cameras}) : super(key: key);
+  const FreezeCamera({Key? key, required this.cameras, this.guide})
+      : super(key: key);
   final List<CameraDescription> cameras;
-
+  final Map? guide;
   @override
   State<FreezeCamera> createState() {
     return _FreezeCameraState();
@@ -56,11 +58,8 @@ class _FreezeCameraState extends State<FreezeCamera>
   double _minAvailableExposureOffset = 0.0;
   double _maxAvailableExposureOffset = 0.0;
   double _currentExposureOffset = 0.0;
-  late Animation<double> _flashModeControlRowAnimation;
   late AnimationController _exposureModeControlRowAnimationController;
-  late Animation<double> _exposureModeControlRowAnimation;
   late AnimationController _focusModeControlRowAnimationController;
-  late Animation<double> _focusModeControlRowAnimation;
   double _minAvailableZoom = 1.0;
   double _maxAvailableZoom = 1.0;
   double _currentScale = 1.0;
@@ -79,17 +78,10 @@ class _FreezeCameraState extends State<FreezeCamera>
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    _exposureModeControlRowAnimation = CurvedAnimation(
-      parent: _exposureModeControlRowAnimationController,
-      curve: Curves.easeInCubic,
-    );
+
     _focusModeControlRowAnimationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
-    );
-    _focusModeControlRowAnimation = CurvedAnimation(
-      parent: _focusModeControlRowAnimationController,
-      curve: Curves.easeInCubic,
     );
   }
 
@@ -124,6 +116,7 @@ class _FreezeCameraState extends State<FreezeCamera>
         children: <Widget>[
           Header(
             defaultTilt: inputIilt,
+            exif: widget.guide?['exif'],
             onCameraSwitch: () {
               setState(() {
                 cameraNum = (cameraNum + 1) % 2;
@@ -138,112 +131,28 @@ class _FreezeCameraState extends State<FreezeCamera>
           ),
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(
-                  color:
-                      controller != null && controller!.value.isRecordingVideo
-                          ? Colors.redAccent
-                          : Colors.grey,
-                  width: 3.0,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Container(
-                  child: Stack(
-                    children: [
-                      _cameraPreviewWidget(),
-                      if (isEdgeGuideOn)
-                        Align(
-                          alignment: Alignment.center,
-                          child: AspectRatio(
-                            aspectRatio: 0.8 / 0.8,
-                            child: Image.asset(
-                              'assets/images/eric_at_ocean_edge.png',
-                              fit: BoxFit.cover,
-                              opacity: AlwaysStoppedAnimation(edgeGuideOpacity),
-                            ),
-                          ),
-                        ),
-                      if (_isGridOn!)
-                        AspectRatio(
-                          aspectRatio: 3 / 4,
-                          child: Image.asset(
-                            'assets/images/Grid.png',
-                            fit: BoxFit.cover,
-                            opacity: AlwaysStoppedAnimation(gridOpacity),
-                          ),
-                        ),
-                      if (_isGridOn!)
-                        IconButton(
-                          icon: Icon(Icons.question_mark),
-                          color: Colors.white,
-                          iconSize: 24.0,
-                          onPressed: () {
-                            if (mounted) {
-                              setState(() {
-                                _isGridGuideOn = true;
-                              });
-                            }
-                          },
-                        ),
-                      if (_isGridGuideOn!)
-                        AspectRatio(
-                          aspectRatio: 3 / 4,
-                          child: Image.asset(
-                            'assets/images/Guide_Grid.png',
-                            fit: BoxFit.cover,
-                            opacity: AlwaysStoppedAnimation(1),
-                          ),
-                        ),
-                      if (_isGridGuideOn!)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.cancel_outlined),
-                              color: Colors.white,
-                              iconSize: 24.0,
-                              onPressed: () {
-                                if (mounted) {
-                                  setState(() {
-                                    _isGridGuideOn = false;
-                                  });
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                    ],
-                  ),
-                ),
+              decoration: BoxDecoration(color: Colors.black),
+              child: Container(
+                child: _cameraPreviewWidget(
+                    _isGridOn!, isEdgeGuideOn, edgeGuideOpacity, widget.guide),
               ),
             ),
           ),
-          _captureControlRowWidget(),
           BottomNav(
+            guide: widget.guide,
             onEdgeGuide: (onEdgeGuide) {
               setState(() {
                 isEdgeGuideOn = onEdgeGuide;
               });
             },
-            setEdgeOpacity: (edgeGuideOpacity) {
+            setEdgeOpacity: (opacity) {
               setState(() {
-                edgeGuideOpacity = edgeGuideOpacity;
+                edgeGuideOpacity = opacity;
               });
             },
             ontakePicture: (e) {
-              takePicture();
+              onTakePictureButtonPressed();
             },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              children: <Widget>[
-                _thumbnailWidget(),
-              ],
-            ),
           ),
         ],
       ),
@@ -251,24 +160,22 @@ class _FreezeCameraState extends State<FreezeCamera>
   }
 
   /// Display the preview from the camera (or a message if the preview is not available).
-  Widget _cameraPreviewWidget() {
+  Widget _cameraPreviewWidget(
+      bool gridOn, bool isEdgeGuideOn, double edgeGuideOpacity, Map? guide) {
     final CameraController? cameraController = controller;
 
     if (cameraController == null || !cameraController.value.isInitialized) {
-      return const Text(
-        'Tap a camera',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 24.0,
-          fontWeight: FontWeight.w900,
-        ),
-      );
+      return const Center(child: CircularProgressIndicator());
     } else {
       return Listener(
         onPointerDown: (_) => _pointers++,
         onPointerUp: (_) => _pointers--,
         child: CameraPreview(
           controller!,
+          gridOn,
+          isEdgeGuideOn,
+          edgeGuideOpacity,
+          guide,
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
             return GestureDetector(
@@ -342,26 +249,6 @@ class _FreezeCameraState extends State<FreezeCamera>
           ],
         ),
       ),
-    );
-  }
-
-  /// Display the control bar with buttons to take pictures and record videos.
-  Widget _captureControlRowWidget() {
-    final CameraController? cameraController = controller;
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.camera_alt),
-          color: Colors.blue,
-          onPressed: cameraController != null &&
-                  cameraController.value.isInitialized &&
-                  !cameraController.value.isRecordingVideo
-              ? onTakePictureButtonPressed
-              : null,
-        ),
-      ],
     );
   }
 
@@ -489,6 +376,8 @@ class _FreezeCameraState extends State<FreezeCamera>
         }
       }
     });
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => Preview(picture: imageFile!)));
   }
 
   Future<XFile?> takePicture() async {

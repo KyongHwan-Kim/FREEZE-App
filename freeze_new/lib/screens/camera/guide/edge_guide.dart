@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class EdgeGuide extends StatefulWidget {
-  const EdgeGuide({Key? key}) : super(key: key);
-
+  const EdgeGuide({Key? key, this.edgeOpacity, this.edgePath})
+      : super(key: key);
+  final double? edgeOpacity;
+  final String? edgePath;
   @override
   _EdgeGuideState createState() => _EdgeGuideState();
 }
@@ -10,18 +12,13 @@ class EdgeGuide extends StatefulWidget {
 class _EdgeGuideState extends State<EdgeGuide> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: MediaQuery.of(context).size.height * 0.2,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-            color: Colors.white),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              height: 20,
-            ),
-          ],
-        ));
+    return AspectRatio(
+      aspectRatio: 0.8 / 0.8,
+      child: Image.asset(
+        widget.edgePath!,
+        fit: BoxFit.cover,
+        opacity: AlwaysStoppedAnimation(widget.edgeOpacity!),
+      ),
+    );
   }
 }
