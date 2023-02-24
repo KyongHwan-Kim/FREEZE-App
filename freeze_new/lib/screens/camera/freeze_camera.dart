@@ -222,7 +222,21 @@ class _FreezeCameraState extends State<FreezeCamera>
             ),
           ),
           _captureControlRowWidget(),
-          const BottomNav(),
+          BottomNav(
+            onEdgeGuide: (onEdgeGuide) {
+              setState(() {
+                isEdgeGuideOn = onEdgeGuide;
+              });
+            },
+            setEdgeOpacity: (edgeGuideOpacity) {
+              setState(() {
+                edgeGuideOpacity = edgeGuideOpacity;
+              });
+            },
+            ontakePicture: (e) {
+              takePicture();
+            },
+          ),
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Row(

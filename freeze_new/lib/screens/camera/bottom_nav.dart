@@ -3,7 +3,16 @@ import 'package:freeze_new/models/font.dart';
 import 'package:freeze_new/screens/camera/get_guide.dart';
 
 class BottomNav extends StatefulWidget {
-  const BottomNav({Key? key}) : super(key: key);
+  final void Function(double) setEdgeOpacity;
+  final void Function(bool) onEdgeGuide;
+  final void Function(bool) ontakePicture;
+
+  BottomNav(
+      {Key? key,
+      required this.onEdgeGuide,
+      required this.setEdgeOpacity,
+      required this.ontakePicture})
+      : super(key: key);
 
   @override
   _BottomNavState createState() => _BottomNavState();
@@ -12,11 +21,26 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   bool isEdgeGuideOn = false;
   double edgeGuideOpacity = 0;
+
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       Container(
         child: Column(children: [
+          isEdgeGuideOn
+              ? Slider(
+                  value: edgeGuideOpacity,
+                  min: 0,
+                  max: 1,
+                  // divisions: 5,
+                  label: "label",
+                  onChanged: (newValue) {
+                    widget.setEdgeOpacity(newValue);
+                  },
+                )
+              : Container(
+                  height: 48,
+                ),
           TextButton(
             onPressed: () {
               Navigator.push(
@@ -32,7 +56,7 @@ class _BottomNavState extends State<BottomNav> {
       ),
       GestureDetector(
         onTap: () {
-          // takePicture();
+          widget.ontakePicture(true);
         }, // Image tapped
         child: Image.asset(
           'assets/images/icon/BTN_camera.png',
@@ -51,11 +75,7 @@ class _BottomNavState extends State<BottomNav> {
               child: Switch(
                 value: isEdgeGuideOn,
                 onChanged: (value) {
-                  if (mounted) {
-                    setState(() {
-                      isEdgeGuideOn = value;
-                    });
-                  }
+                  widget.onEdgeGuide(value);
                 },
               ),
             ),
